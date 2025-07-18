@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>🍉 عجلة الحظ بالفواكه</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 40px auto;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 10px solid #fff;
+      box-shadow: 0 0 20px #ff0;
+      background: conic-gradient(
+        #ff9999 0deg 45deg, #99ff99 45deg 90deg,
+        #9999ff 90deg 135deg, #ffff99 135deg 180deg,
+        #ffcc99 180deg 225deg, #cc99ff 225deg 270deg,
+        #66ffff 270deg 315deg, #ff6666 315deg 360deg
+      );
+      transition: transform 4s ease-out;
+    }
+
+    .center-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid yellow;
+      transform: translate(-50%, -130%);
+    }
+
+    #spin {
+      margin-top: 30px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎡 عجلة الحظ بالفواكه</h1>
+
+  <div class="wheel-container">
+    <div class="wheel" id="wheel"></div>
+    <div class="center-arrow"></div>
+  </div>
+
+  <button onclick="spinWheel()" id="spin">ابدأ الدوران</button>
+  <div id="result"></div>
+
+  <a href="index.html" class="game-button">🔙 العودة للرئيسية</a>
+
+  <script>
+    const fruits = ["🍎 تفاح", "🍌 موز", "🍇 عنب", "🍊 برتقال", "🍉 بطيخ", "🍍 أناناس", "🍓 فراولة", "🥭 مانجو"];
+    let isSpinning = false;
+
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+
+      const wheel = document.getElementById("wheel");
+      const result = document.getElementById("result");
+      const rand = Math.floor(Math.random() * fruits.length);
+      const deg = 3600 + (rand * 45); // 3600 to ensure multiple spins + target
+
+      wheel.style.transform = `rotate(${deg}deg)`;
+
+      setTimeout(() => {
+        result.innerText = `🎉 لقد ربحت: ${fruits[rand]}!`;
+        isSpinning = false;
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
